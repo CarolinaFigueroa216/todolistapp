@@ -1,15 +1,51 @@
+# Android build artifacts
+*.apk
+*.aar
+*.jar
+*.so
+*.dex
+
+# Android build directories
+build/
+.gradle/
+captures/
+.externalNativeBuild/
+
+# Android IDE files
+.local.properties
+.settings/
+.load.properties
+
+# Android cache
+.cache/
+
+# Android logs
+*.log
+
+# Android temp files
+*.tmp
+*.temp
+
+# Android coverage
+coverage/
+*.ec
+
+# Android emulator
+*.avd/
+
+# Android studio
+.idea/
 *.iml
-.gradle
-/local.properties
-/.idea/caches
-/.idea/libraries
-/.idea/modules.xml
-/.idea/workspace.xml
-/.idea/navEditor.xml
-/.idea/assetWizardSettings.xml
-.DS_Store
-/build
-/captures
-.externalNativeBuild
-.cxx
-local.properties
+*.iws
+out/
+
+# Android metadata
+.metadata/
+bin/
+gen/
+res/raw/
+
+# Android specific
+proguard/
+lint/
+shaders/
