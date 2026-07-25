@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="black">#FF000000</color>
+    <color name="white">#FFFFFFFF</color>
+    <color name="rosaPastel">#F8C8DC</color>
+    <color name="lilaPastel">#DCC6E0</color>
+    <color name="mentaPastel">#C7EDE6</color>
+    <color name="blanco">#FFFFFF</color>
+    <color name="grisTexto">#555555</color>
+
+</resources>

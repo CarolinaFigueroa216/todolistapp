@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">todolistapp</string>
+    <string name="agregar_tarea">Agregar tarea</string>
+</resources>
