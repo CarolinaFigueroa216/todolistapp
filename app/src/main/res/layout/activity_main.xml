@@ -46,12 +46,19 @@
             android:textColor="@color/morado"
             android:layout_marginBottom="8dp"/>
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerPendientes"
+        <!-- ScrollView para permitir desplazamiento en la lista de pendientes -->
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:maxHeight="200dp"
-            android:nestedScrollingEnabled="false"/>
+            android:fillViewport="false">
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerPendientes"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:nestedScrollingEnabled="false"/>
+        </ScrollView>
 
         <TextView
             android:id="@+id/tvTareasPendientesInfo"
