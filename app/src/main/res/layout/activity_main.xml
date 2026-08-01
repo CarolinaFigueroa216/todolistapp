@@ -16,6 +16,17 @@
         android:textStyle="bold"
         android:textColor="@color/azulPastel"
         android:gravity="center"
+        android:layout_marginBottom="4dp"/>
+
+    <TextView
+        android:id="@+id/tvRolUsuario"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Rol: USER"
+        android:textSize="14sp"
+        android:textStyle="bold"
+        android:textColor="@color/morado"
+        android:gravity="center"
         android:layout_marginBottom="16dp"/>
 
     <com.google.android.material.button.MaterialButton

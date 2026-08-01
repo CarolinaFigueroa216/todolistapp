@@ -15,10 +15,14 @@ public class PendientesAdapter extends RecyclerView.Adapter<PendientesAdapter.Vi
 
     private List<Tarea> lista;
     private Context context;
+    private String rolUsuario;
+    private String usuarioActual;
 
-    public PendientesAdapter(List<Tarea> lista, Context context) {
+    public PendientesAdapter(List<Tarea> lista, Context context, String rolUsuario, String usuarioActual) {
         this.lista = lista;
         this.context = context;
+        this.rolUsuario = rolUsuario;
+        this.usuarioActual = usuarioActual;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {

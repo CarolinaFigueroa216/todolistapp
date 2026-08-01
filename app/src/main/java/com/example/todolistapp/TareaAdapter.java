@@ -22,11 +22,15 @@ public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.ViewHolder> 
     private List<Tarea> lista;
     private Context context;
     private FirebaseFirestore db;
+    private String rolUsuario;
+    private String usuarioActual;
 
-    public TareaAdapter(List<Tarea> lista, Context context) {
+    public TareaAdapter(List<Tarea> lista, Context context, String rolUsuario, String usuarioActual) {
         this.lista = lista;
         this.context = context;
         this.db = FirebaseFirestore.getInstance();
+        this.rolUsuario = rolUsuario;
+        this.usuarioActual = usuarioActual;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -74,70 +78,83 @@ public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.ViewHolder> 
         holder.descripcion.setText(tarea.getDescripcion());
         holder.estado.setChecked(tarea.isCompletada());
 
-        // ELIMINAR
-        holder.btnEliminar.setOnClickListener(v -> {
+        // Controlar visibilidad de botones según el rol
+        boolean puedeEditar = rolUsuario.equals("admin");
+        boolean puedeEliminar = rolUsuario.equals("admin") || 
+                               (rolUsuario.equals("user") && usuarioActual.equals(tarea.getUsuario()));
 
-            db.collection("tareas")
-                    .document(tarea.getId())
-                    .delete();
-        });
+        if (puedeEditar) {
+            holder.btnEditar.setVisibility(View.VISIBLE);
+            holder.btnEditar.setOnClickListener(v -> {
 
-        // EDITAR
-        holder.btnEditar.setOnClickListener(v -> {
+                AlertDialog.Builder builder =
+                        new AlertDialog.Builder(context);
 
-            AlertDialog.Builder builder =
-                    new AlertDialog.Builder(context);
+                View view = LayoutInflater.from(context)
+                        .inflate(R.layout.dialog_tarea, null);
 
-            View view = LayoutInflater.from(context)
-                    .inflate(R.layout.dialog_tarea, null);
+                EditText etTitulo =
+                        view.findViewById(R.id.etTitulo);
 
-            EditText etTitulo =
-                    view.findViewById(R.id.etTitulo);
+                EditText etDescripcion =
+                        view.findViewById(R.id.etDescripcion);
 
-            EditText etDescripcion =
-                    view.findViewById(R.id.etDescripcion);
+                etTitulo.setText(tarea.getTitulo());
+                etDescripcion.setText(tarea.getDescripcion());
 
-            etTitulo.setText(tarea.getTitulo());
-            etDescripcion.setText(tarea.getDescripcion());
+                builder.setTitle("Editar tarea");
+                builder.setView(view);
 
-            builder.setTitle("Editar tarea");
-            builder.setView(view);
+                builder.setPositiveButton(
+                        "Actualizar",
+                        (dialog, which) -> {
 
-            builder.setPositiveButton(
-                    "Actualizar",
-                    (dialog, which) -> {
+                            String nuevoTitulo =
+                                    etTitulo.getText()
+                                            .toString()
+                                            .trim();
 
-                        String nuevoTitulo =
-                                etTitulo.getText()
-                                        .toString()
-                                        .trim();
+                            String nuevaDescripcion =
+                                    etDescripcion.getText()
+                                            .toString()
+                                            .trim();
 
-                        String nuevaDescripcion =
-                                etDescripcion.getText()
-                                        .toString()
-                                        .trim();
+                            if (nuevoTitulo.isEmpty()
+                                    || nuevaDescripcion.isEmpty()) {
+                                return;
+                            }
 
-                        if (nuevoTitulo.isEmpty()
-                                || nuevaDescripcion.isEmpty()) {
-                            return;
-                        }
+                            db.collection("tareas")
+                                    .document(tarea.getId())
+                                    .update(
+                                            "titulo",
+                                            nuevoTitulo,
+                                            "descripcion",
+                                            nuevaDescripcion
+                                    );
+                        });
 
-                        db.collection("tareas")
-                                .document(tarea.getId())
-                                .update(
-                                        "titulo",
-                                        nuevoTitulo,
-                                        "descripcion",
-                                        nuevaDescripcion
-                                );
-                    });
+                builder.setNegativeButton(
+                        "Cancelar",
+                        null);
 
-            builder.setNegativeButton(
-                    "Cancelar",
-                    null);
+                builder.show();
+            });
+        } else {
+            holder.btnEditar.setVisibility(View.GONE);
+        }
 
-            builder.show();
-        });
+        if (puedeEliminar) {
+            holder.btnEliminar.setVisibility(View.VISIBLE);
+            holder.btnEliminar.setOnClickListener(v -> {
+
+                db.collection("tareas")
+                        .document(tarea.getId())
+                        .delete();
+            });
+        } else {
+            holder.btnEliminar.setVisibility(View.GONE);
+        }
     }
 
     @Override
