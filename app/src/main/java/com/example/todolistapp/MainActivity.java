@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recycler;
     Button btnAgregar, btnCerrarSesion;
-    TextView tvNombreUsuario;
+    TextView tvNombreUsuario, tvTareasPendientesInfo;
     List<Tarea> lista = new ArrayList<>();
     TareaAdapter adapter;
 
@@ -44,6 +44,7 @@ public class MainActivity extends AppCompatActivity {
         btnAgregar = findViewById(R.id.btnAgregar);
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
         tvNombreUsuario = findViewById(R.id.tvNombreUsuario);
+        tvTareasPendientesInfo = findViewById(R.id.tvTareasPendientesInfo);
 
         String nombreUsuario = getIntent().getStringExtra("nombreUsuario");
         if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
@@ -88,6 +89,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     adapter.notifyDataSetChanged();
+                    actualizarPanelPendientes();
                 });
     }
 
@@ -222,5 +224,17 @@ public class MainActivity extends AppCompatActivity {
     private void cerrarSesion() {
         Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
         finish();
+    }
+    
+    private void actualizarPanelPendientes() {
+        int pendientes = 0;
+        
+        for (Tarea tarea : lista) {
+            if (!tarea.isCompletada()) {
+                pendientes++;
+            }
+        }
+        
+        tvTareasPendientesInfo.setText(pendientes + " tarea" + (pendientes != 1 ? "s" : "") + " pendiente" + (pendientes != 1 ? "s" : ""));
     }
 }

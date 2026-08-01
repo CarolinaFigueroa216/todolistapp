@@ -1,44 +1,58 @@
 ```
-# Build artifacts
+# Compiled and build artifacts
 *.class
 *.dex
 *.so
 *.aar
 *.apk
 *.jar
-
-# Gradle
-.gradle/
+*.war
+*.ear
+obj/
 build/
-!gradle/wrapper/gradle-wrapper.jar
+bin/
+gen/
 
-# Android
-*.ap_
-*.aab
-*.apks
-*.flat
-*.scc
+# Dependencies
+.gradle/
+node_modules/
+libs/
+vendor/
 
-# IDE
+# IDE files
 .idea/
 *.iml
 *.ipr
 *.iws
 .vscode/
-
-# Temp files
-*.tmp
-*.temp
-*.log
-
-# Local configuration
-local.properties
 .settings/
-.provisional/
-captures/
-.externalNativeBuild/
+.project
+.classpath
+.target/
 
-# OS generated files
+# System files
 .DS_Store
 Thumbs.db
+*.log
+*.tmp
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# Coverage reports
+coverage/
+htmlcov/
+*.coverage
+
+# Compressed files
+*.zip
+*.gz
+*.tar
+*.tgz
+*.bz2
+*.xz
+*.7z
+*.rar
 ```
