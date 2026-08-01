@@ -76,6 +76,7 @@ app/
 - Muestra diálogo para agregar nuevas tareas
 - Valida campos antes de guardar
 - Gestiona el ciclo de vida (onDestroy limpia listeners)
+- **Botón "Cerrar sesión"**: Permite al usuario salir de la aplicación y regresar al login
 
 ### 4. **Tarea.java**
 - Modelo de datos con propiedades:
@@ -110,7 +111,10 @@ app/
   - Contador visible para longitud de clave
   - Botón REGISTRAR
   
-- **activity_main.xml**: Botón "Agregar tarea" + RecyclerView
+- **activity_main.xml**: 
+  - Botón "Cerrar sesión" en la parte superior
+  - Botón "Agregar tarea"
+  - RecyclerView para listar tareas
 - **item_tarea.xml**: CardView con título, descripción, checkbox y botones
 - **dialog_tarea.xml**: Formulario con TextInputLayout para título y descripción
 
@@ -163,6 +167,7 @@ app/
    - Recibe mensaje de éxito y es redirigido a la lista de tareas
 
 3. **Gestión de Tareas**:
+   - Botón "Cerrar sesión" para salir y regresar al login
    - Agregar nuevas tareas con título y descripción
    - Editar tareas existentes
    - Eliminar tareas
