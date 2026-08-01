@@ -72,7 +72,7 @@ public class LoginActivity extends AppCompatActivity {
                         ).show();
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
-                        intent.putExtra("usuario", usuario);
+                        intent.putExtra("nombreUsuario", usuario);
                         startActivity(intent);
                         finish();
                     } else {
