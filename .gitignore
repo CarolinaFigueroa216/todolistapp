@@ -1,67 +1,51 @@
-# Build artifacts
-build/
-dist/
-*.apk
-*.aab
+```
+# Compiled/Binary files
+*.class
+*.o
+*.obj
+*.exe
+*.dll
 *.so
-*.jar
+*.a
+*.out
 
 # Dependencies
-.gradle/
 node_modules/
-vendor/
+venv/
+.venv/
+__pycache__/
+dist/
+build/
+target/
+.gradle/
 
-# IDE files
-.idea/
+# IDE/Editor files
 .vscode/
-*.iml
-*.iws
-*.ipr
+.idea/
+*.swp
+*.swo
+*.tmp
 
 # System files
 .DS_Store
 Thumbs.db
-
-# Logs
-*.log
-
-# Local configuration
-local.properties
-gradle.properties
-*.keystore
-
-# Coverage reports
-coverage/
-htmlcov/
-
-# Environment
 .env
 .env.local
 *.env.*
 
-# Python specific
-__pycache__/
-*.pyc
-*.pyo
-*.pyd
-.Python
-env/
-venv/
-.venv/
-pip-log.txt
-pip-delete-this-directory.txt
-.tox/
-.coverage
-.coverage.*
-.cache
-nosetests.xml
-coverage.xml
-*.cover
+# Logs
 *.log
-.gitattributes
-*.swp
-*.swo
-*~
-.project
-.pydevproject
-.vscode/settings.json
+
+# Coverage
+coverage/
+htmlcov/
+.coverage
+
+# Android specific
+*.apk
+*.aar
+*.dex
+app/build/
+.gradle/
+local.properties
+```

@@ -75,7 +75,7 @@
                 <com.google.android.material.textfield.TextInputLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="24dp"
+                    android:layout_marginBottom="16dp"
                     style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
                     app:boxStrokeColor="@color/rosaPastel"
                     app:hintTextColor="@color/rosaPastel"
@@ -89,6 +89,24 @@
                         android:inputType="textPassword"
                         android:maxLines="1"/>
                 </com.google.android.material.textfield.TextInputLayout>
+
+                <!-- Spinner de Roles -->
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Seleccionar Rol"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:textColor="@color/grisTexto"
+                    android:layout_marginBottom="8dp"/>
+
+                <Spinner
+                    android:id="@+id/spinnerRol"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="24dp"
+                    android:background="@android:drawable/btn_dropdown"
+                    android:padding="12dp"/>
 
                 <!-- Botón Ingresar -->
                 <com.google.android.material.button.MaterialButton

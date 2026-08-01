@@ -26,7 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recycler, recyclerPendientes;
     Button btnAgregar, btnCerrarSesion;
-    TextView tvNombreUsuario, tvTareasPendientesInfo;
+    TextView tvNombreUsuario, tvTareasPendientesInfo, tvRolUsuario;
     List<Tarea> lista = new ArrayList<>();
     List<Tarea> listaPendientes = new ArrayList<>();
     TareaAdapter adapter;
@@ -34,6 +34,9 @@ public class MainActivity extends AppCompatActivity {
 
     private FirebaseFirestore db;
     private ListenerRegistration listenerRegistration;
+    
+    private String nombreUsuarioActual;
+    private String rolUsuario;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,26 +51,41 @@ public class MainActivity extends AppCompatActivity {
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
         tvNombreUsuario = findViewById(R.id.tvNombreUsuario);
         tvTareasPendientesInfo = findViewById(R.id.tvTareasPendientesInfo);
+        tvRolUsuario = findViewById(R.id.tvRolUsuario);
 
-        String nombreUsuario = getIntent().getStringExtra("nombreUsuario");
-        if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
-            tvNombreUsuario.setText("Bienvenido, " + nombreUsuario);
+        nombreUsuarioActual = getIntent().getStringExtra("nombreUsuario");
+        rolUsuario = getIntent().getStringExtra("rol");
+        
+        if (rolUsuario == null) {
+            rolUsuario = "user"; // Por defecto
+        }
+
+        if (nombreUsuarioActual != null && !nombreUsuarioActual.isEmpty()) {
+            tvNombreUsuario.setText("Bienvenido, " + nombreUsuarioActual);
         } else {
             tvNombreUsuario.setText("Bienvenido");
         }
+        
+        tvRolUsuario.setText("Rol: " + rolUsuario.toUpperCase());
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
         recyclerPendientes.setLayoutManager(new LinearLayoutManager(this));
 
-        adapter = new TareaAdapter(lista, this);
+        adapter = new TareaAdapter(lista, this, rolUsuario, nombreUsuarioActual);
         recycler.setAdapter(adapter);
 
-        adapterPendientes = new PendientesAdapter(listaPendientes, this);
+        adapterPendientes = new PendientesAdapter(listaPendientes, this, rolUsuario, nombreUsuarioActual);
         recyclerPendientes.setAdapter(adapterPendientes);
 
         cargarTareas();
 
-        btnAgregar.setOnClickListener(v -> mostrarDialogo());
+        // Solo Admin y User pueden crear tareas
+        if (rolUsuario.equals("admin") || rolUsuario.equals("user")) {
+            btnAgregar.setOnClickListener(v -> mostrarDialogo());
+            btnAgregar.setVisibility(View.VISIBLE);
+        } else {
+            btnAgregar.setVisibility(View.GONE);
+        }
         
         btnCerrarSesion.setOnClickListener(v -> cerrarSesion());
     }
@@ -91,11 +109,31 @@ public class MainActivity extends AppCompatActivity {
                         if (tarea != null) {
 
                             tarea.setId(doc.getId());
+                            
+                            // Filtrar tareas según el rol
+                            boolean mostrarTarea = false;
+                            
+                            if (rolUsuario.equals("admin")) {
+                                // Admin ve todas las tareas
+                                mostrarTarea = true;
+                            } else if (rolUsuario.equals("user")) {
+                                // User ve solo sus propias tareas
+                                if (nombreUsuarioActual.equals(tarea.getUsuario())) {
+                                    mostrarTarea = true;
+                                }
+                            } else if (rolUsuario.equals("viewer")) {
+                                // Viewer ve todas las tareas pendientes (solo lectura)
+                                if (!tarea.isCompletada()) {
+                                    mostrarTarea = true;
+                                }
+                            }
 
-                            lista.add(tarea);
+                            if (mostrarTarea) {
+                                lista.add(tarea);
 
-                            if (!tarea.isCompletada()) {
-                                listaPendientes.add(tarea);
+                                if (!tarea.isCompletada()) {
+                                    listaPendientes.add(tarea);
+                                }
                             }
                         }
                     }
@@ -192,6 +230,7 @@ public class MainActivity extends AppCompatActivity {
                     datos.put("titulo", titulo);
                     datos.put("descripcion", descripcion);
                     datos.put("completada", false);
+                    datos.put("usuario", nombreUsuarioActual);
 
                     db.collection("tareas")
                             .add(datos)

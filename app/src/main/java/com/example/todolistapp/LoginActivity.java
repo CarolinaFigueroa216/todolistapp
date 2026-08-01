@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,6 +16,7 @@ public class LoginActivity extends AppCompatActivity {
 
     EditText etUsuarioLogin, etClaveLogin;
     Button btnIngresar, btnIrRegistro;
+    Spinner spinnerRol;
 
     private FirebaseFirestore db;
 
@@ -28,6 +31,13 @@ public class LoginActivity extends AppCompatActivity {
         etClaveLogin = findViewById(R.id.etClaveLogin);
         btnIngresar = findViewById(R.id.btnIngresar);
         btnIrRegistro = findViewById(R.id.btnIrRegistro);
+        spinnerRol = findViewById(R.id.spinnerRol);
+
+        // Configurar spinner de roles
+        String[] roles = {"admin", "user", "viewer"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRol.setAdapter(adapter);
 
         // Botón para ir a registro
         btnIrRegistro.setOnClickListener(v -> {
@@ -39,6 +49,7 @@ public class LoginActivity extends AppCompatActivity {
         btnIngresar.setOnClickListener(v -> {
             String usuario = etUsuarioLogin.getText().toString().trim();
             String clave = etClaveLogin.getText().toString().trim();
+            String rol = spinnerRol.getSelectedItem().toString();
 
             if (usuario.isEmpty()) {
                 etUsuarioLogin.setError("Ingrese su usuario");
@@ -53,11 +64,11 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             // Validar usuario en Firestore
-            validarUsuario(usuario, clave);
+            validarUsuario(usuario, clave, rol);
         });
     }
 
-    private void validarUsuario(String usuario, String clave) {
+    private void validarUsuario(String usuario, String clave, String rol) {
         db.collection("usuarios")
                 .whereEqualTo("usuario", usuario)
                 .whereEqualTo("clave", clave)
@@ -73,6 +84,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("nombreUsuario", usuario);
+                        intent.putExtra("rol", rol);
                         startActivity(intent);
                         finish();
                     } else {

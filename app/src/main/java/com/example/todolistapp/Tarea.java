@@ -6,6 +6,7 @@ public class Tarea {
     private String titulo;
     private String descripcion;
     private boolean completada;
+    private String usuario;
 
     public Tarea() {
     }
@@ -19,6 +20,19 @@ public class Tarea {
         this.titulo = titulo;
         this.descripcion = descripcion;
         this.completada = completada;
+    }
+
+    public Tarea(String id,
+                 String titulo,
+                 String descripcion,
+                 boolean completada,
+                 String usuario) {
+
+        this.id = id;
+        this.titulo = titulo;
+        this.descripcion = descripcion;
+        this.completada = completada;
+        this.usuario = usuario;
     }
 
     public String getId() {
@@ -51,5 +65,13 @@ public class Tarea {
 
     public void setCompletada(boolean completada) {
         this.completada = completada;
+    }
+
+    public String getUsuario() {
+        return usuario;
+    }
+
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
     }
 }
