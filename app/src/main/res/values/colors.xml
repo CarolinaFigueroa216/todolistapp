@@ -7,5 +7,6 @@
     <color name="mentaPastel">#C7EDE6</color>
     <color name="blanco">#FFFFFF</color>
     <color name="grisTexto">#555555</color>
-
+    <color name="azulPastel">#AEC6CF</color>
+    <color name="morado">#8B5FBF</color>
 </resources>

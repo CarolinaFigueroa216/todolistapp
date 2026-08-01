@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.firestore.DocumentSnapshot;
@@ -25,6 +26,7 @@ public class MainActivity extends AppCompatActivity {
 
     RecyclerView recycler;
     Button btnAgregar, btnCerrarSesion;
+    TextView tvNombreUsuario;
     List<Tarea> lista = new ArrayList<>();
     TareaAdapter adapter;
 
@@ -41,6 +43,14 @@ public class MainActivity extends AppCompatActivity {
         recycler = findViewById(R.id.recyclerTareas);
         btnAgregar = findViewById(R.id.btnAgregar);
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
+        tvNombreUsuario = findViewById(R.id.tvNombreUsuario);
+
+        String nombreUsuario = getIntent().getStringExtra("nombreUsuario");
+        if (nombreUsuario != null && !nombreUsuario.isEmpty()) {
+            tvNombreUsuario.setText("Bienvenido, " + nombreUsuario);
+        } else {
+            tvNombreUsuario.setText("Bienvenido");
+        }
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
 

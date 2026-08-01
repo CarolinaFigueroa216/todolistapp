@@ -7,13 +7,16 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/btnCerrarSesion"
+    <TextView
+        android:id="@+id/tvNombreUsuario"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="🚪 Cerrar sesión"
-        android:layout_marginBottom="12dp"
-        android:backgroundTint="@color/rosaPastel"/>
+        android:text="Usuario"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textColor="@color/azulPastel"
+        android:gravity="center"
+        android:layout_marginBottom="16dp"/>
 
     <com.google.android.material.button.MaterialButton
         android:id="@+id/btnAgregar"
@@ -26,5 +29,13 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerTareas"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/btnCerrarSesion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="🚪 Cerrar sesión"
+        android:backgroundTint="@color/morado"/>
 </LinearLayout>
