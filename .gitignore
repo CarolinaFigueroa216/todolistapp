@@ -1,1 +1,50 @@
-Nothing needs to be added to .gitignore since only a README.md file was added, which is a source/config file and not a build artifact, dependency, or temporary file.
+```
+# Build outputs
+build/
+bin/
+gen/
+out/
+
+# Gradle
+.gradle/
+!gradle.properties
+
+# Local configuration file (sdk path, etc)
+local.properties
+
+# Log Files
+*.log
+
+# Android Studio
+.idea/
+*.iml
+*.hprof
+captures/
+.navigation/
+
+# Keystore
+*.keystore
+*.jks
+
+# Debug
+debug.keystore
+debug.jks
+
+# Coverage
+coverage/
+*.ec
+
+# Temporary files
+*.tmp
+*.temp
+*.bak
+
+# Environment
+.env
+.env.local
+*.env.*
+
+# OS generated files
+.DS_Store
+Thumbs.db
+```
