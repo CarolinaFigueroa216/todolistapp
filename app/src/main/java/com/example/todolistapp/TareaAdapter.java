@@ -81,7 +81,7 @@ public class TareaAdapter extends RecyclerView.Adapter<TareaAdapter.ViewHolder> 
         // Controlar visibilidad de botones según el rol
         boolean puedeEditar = rolUsuario.equals("admin");
         boolean puedeEliminar = rolUsuario.equals("admin") || 
-                               (rolUsuario.equals("user") && usuarioActual.equals(tarea.getUsuario()));
+                               (rolUsuario.equals("user") && usuarioActual.equals(tarea.getUsuario()) && !tarea.isCompletada());
 
         if (puedeEditar) {
             holder.btnEditar.setVisibility(View.VISIBLE);

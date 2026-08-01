@@ -10,6 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.firebase.firestore.DocumentSnapshot;
 import com.google.firebase.firestore.FirebaseFirestore;
 
 public class LoginActivity extends AppCompatActivity {
@@ -33,7 +34,7 @@ public class LoginActivity extends AppCompatActivity {
         btnIrRegistro = findViewById(R.id.btnIrRegistro);
         spinnerRol = findViewById(R.id.spinnerRol);
 
-        // Configurar spinner de roles
+        // Configurar spinner de roles (solo user y viewer para registro, admin disponible en login)
         String[] roles = {"admin", "user", "viewer"};
         ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
         adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
@@ -49,7 +50,7 @@ public class LoginActivity extends AppCompatActivity {
         btnIngresar.setOnClickListener(v -> {
             String usuario = etUsuarioLogin.getText().toString().trim();
             String clave = etClaveLogin.getText().toString().trim();
-            String rol = spinnerRol.getSelectedItem().toString();
+            String rolSeleccionado = spinnerRol.getSelectedItem().toString();
 
             if (usuario.isEmpty()) {
                 etUsuarioLogin.setError("Ingrese su usuario");
@@ -64,17 +65,25 @@ public class LoginActivity extends AppCompatActivity {
             }
 
             // Validar usuario en Firestore
-            validarUsuario(usuario, clave, rol);
+            validarUsuario(usuario, clave, rolSeleccionado);
         });
     }
 
-    private void validarUsuario(String usuario, String clave, String rol) {
+    private void validarUsuario(String usuario, String clave, String rolSeleccionado) {
         db.collection("usuarios")
                 .whereEqualTo("usuario", usuario)
                 .whereEqualTo("clave", clave)
                 .get()
                 .addOnSuccessListener(queryDocumentSnapshots -> {
                     if (!queryDocumentSnapshots.isEmpty()) {
+                        DocumentSnapshot doc = queryDocumentSnapshots.getDocuments().get(0);
+                        String rolEnBaseDatos = doc.getString("rol");
+                        
+                        // Si el rol en la BD es null, usar el seleccionado (para usuarios antiguos)
+                        if (rolEnBaseDatos == null) {
+                            rolEnBaseDatos = rolSeleccionado;
+                        }
+                        
                         // Usuario válido, ir a MainActivity
                         Toast.makeText(
                                 LoginActivity.this,
@@ -84,7 +93,7 @@ public class LoginActivity extends AppCompatActivity {
 
                         Intent intent = new Intent(LoginActivity.this, MainActivity.class);
                         intent.putExtra("nombreUsuario", usuario);
-                        intent.putExtra("rol", rol);
+                        intent.putExtra("rol", rolEnBaseDatos);
                         startActivity(intent);
                         finish();
                     } else {

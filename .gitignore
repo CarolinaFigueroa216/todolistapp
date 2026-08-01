@@ -1,51 +1,56 @@
-```
+```gitignore
 # Compiled/Binary files
 *.class
 *.o
 *.obj
-*.exe
-*.dll
 *.so
-*.a
-*.out
+*.dll
+*.exe
 
 # Dependencies
-node_modules/
-venv/
-.venv/
-__pycache__/
-dist/
-build/
-target/
-.gradle/
+libs/
+lib/
 
-# IDE/Editor files
-.vscode/
+# Build outputs
+build/
+bin/
+gen/
+out/
+
+# IDE files
 .idea/
+*.iml
+*.ipr
+*.iws
+.vscode/
 *.swp
 *.swo
-*.tmp
-
-# System files
-.DS_Store
-Thumbs.db
-.env
-.env.local
-*.env.*
 
 # Logs
 *.log
 
+# Environment
+.env
+.env.local
+*.env.*
+
 # Coverage
 coverage/
 htmlcov/
-.coverage
+*.coverage
+
+# Gradle
+.gradle/
+.gradle/
+!gradle/wrapper/
+!gradle.properties
 
 # Android specific
 *.apk
 *.aar
-*.dex
-app/build/
-.gradle/
 local.properties
+captures/
+.externalNativeBuild
+.intermediates
+.kotlin
 ```
