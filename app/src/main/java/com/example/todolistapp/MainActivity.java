@@ -24,7 +24,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     RecyclerView recycler;
-    Button btnAgregar;
+    Button btnAgregar, btnCerrarSesion;
     List<Tarea> lista = new ArrayList<>();
     TareaAdapter adapter;
 
@@ -40,6 +40,7 @@ public class MainActivity extends AppCompatActivity {
 
         recycler = findViewById(R.id.recyclerTareas);
         btnAgregar = findViewById(R.id.btnAgregar);
+        btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
 
@@ -49,6 +50,8 @@ public class MainActivity extends AppCompatActivity {
         cargarTareas();
 
         btnAgregar.setOnClickListener(v -> mostrarDialogo());
+        
+        btnCerrarSesion.setOnClickListener(v -> cerrarSesion());
     }
 
     private void cargarTareas() {
@@ -204,5 +207,10 @@ public class MainActivity extends AppCompatActivity {
         if (listenerRegistration != null) {
             listenerRegistration.remove();
         }
+    }
+    
+    private void cerrarSesion() {
+        Toast.makeText(this, "Sesión cerrada", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }
