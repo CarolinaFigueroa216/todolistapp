@@ -24,11 +24,13 @@ import java.util.Map;
 
 public class MainActivity extends AppCompatActivity {
 
-    RecyclerView recycler;
+    RecyclerView recycler, recyclerPendientes;
     Button btnAgregar, btnCerrarSesion;
     TextView tvNombreUsuario, tvTareasPendientesInfo;
     List<Tarea> lista = new ArrayList<>();
+    List<Tarea> listaPendientes = new ArrayList<>();
     TareaAdapter adapter;
+    PendientesAdapter adapterPendientes;
 
     private FirebaseFirestore db;
     private ListenerRegistration listenerRegistration;
@@ -41,6 +43,7 @@ public class MainActivity extends AppCompatActivity {
         db = FirebaseFirestore.getInstance();
 
         recycler = findViewById(R.id.recyclerTareas);
+        recyclerPendientes = findViewById(R.id.recyclerPendientes);
         btnAgregar = findViewById(R.id.btnAgregar);
         btnCerrarSesion = findViewById(R.id.btnCerrarSesion);
         tvNombreUsuario = findViewById(R.id.tvNombreUsuario);
@@ -54,9 +57,13 @@ public class MainActivity extends AppCompatActivity {
         }
 
         recycler.setLayoutManager(new LinearLayoutManager(this));
+        recyclerPendientes.setLayoutManager(new LinearLayoutManager(this));
 
         adapter = new TareaAdapter(lista, this);
         recycler.setAdapter(adapter);
+
+        adapterPendientes = new PendientesAdapter(listaPendientes, this);
+        recyclerPendientes.setAdapter(adapterPendientes);
 
         cargarTareas();
 
@@ -75,6 +82,7 @@ public class MainActivity extends AppCompatActivity {
                     }
 
                     lista.clear();
+                    listaPendientes.clear();
 
                     for (DocumentSnapshot doc : value.getDocuments()) {
 
@@ -85,10 +93,15 @@ public class MainActivity extends AppCompatActivity {
                             tarea.setId(doc.getId());
 
                             lista.add(tarea);
+
+                            if (!tarea.isCompletada()) {
+                                listaPendientes.add(tarea);
+                            }
                         }
                     }
 
                     adapter.notifyDataSetChanged();
+                    adapterPendientes.notifyDataSetChanged();
                     actualizarPanelPendientes();
                 });
     }

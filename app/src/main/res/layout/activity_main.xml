@@ -31,27 +31,36 @@
         android:id="@+id/panelTareasPendientes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:background="@drawable/panel_info_background"
         android:padding="12dp"
-        android:layout_marginBottom="12dp"
-        android:gravity="center">
+        android:layout_marginBottom="12dp">
 
         <TextView
-            android:id="@+id/tvIconoPendientes"
+            android:id="@+id/tvTituloPendientes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="📋"
-            android:textSize="24sp"
-            android:layout_marginEnd="8dp"/>
+            android:text="📋 Tareas Pendientes"
+            android:textSize="18sp"
+            android:textStyle="bold"
+            android:textColor="@color/morado"
+            android:layout_marginBottom="8dp"/>
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerPendientes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:maxHeight="200dp"
+            android:nestedScrollingEnabled="false"/>
 
         <TextView
             android:id="@+id/tvTareasPendientesInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="0 tareas pendientes"
-            android:textSize="16sp"
+            android:textSize="14sp"
             android:textColor="@color/morado"
+            android:layout_marginTop="8dp"
             android:textStyle="bold"/>
     </LinearLayout>
 

@@ -1,58 +1,39 @@
 ```
-# Compiled and build artifacts
+# Dependencies
+.gradle/
+build/
+
+# Java specific
 *.class
-*.dex
-*.so
-*.aar
-*.apk
 *.jar
 *.war
 *.ear
-obj/
-build/
-bin/
-gen/
 
-# Dependencies
-.gradle/
-node_modules/
-libs/
-vendor/
-
-# IDE files
+# IDE
 .idea/
 *.iml
 *.ipr
 *.iws
-.vscode/
-.settings/
-.project
-.classpath
-.target/
 
-# System files
+# System
 .DS_Store
 Thumbs.db
+
+# Logs
 *.log
-*.tmp
 
 # Environment
 .env
 .env.local
 *.env.*
 
-# Coverage reports
+# Coverage
 coverage/
 htmlcov/
-*.coverage
+.coverage
 
-# Compressed files
-*.zip
-*.gz
-*.tar
-*.tgz
-*.bz2
-*.xz
-*.7z
-*.rar
+# Temp files
+*.tmp
+*.swp
+*~
 ```
