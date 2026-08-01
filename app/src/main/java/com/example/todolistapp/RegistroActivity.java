@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -17,6 +19,7 @@ public class RegistroActivity extends AppCompatActivity {
 
     EditText etNombreUsuario, etCorreo, etClaveRegistro, etConfirmarClave;
     Button btnRegistrar;
+    Spinner spinnerRol;
 
     private FirebaseFirestore db;
 
@@ -32,6 +35,13 @@ public class RegistroActivity extends AppCompatActivity {
         etClaveRegistro = findViewById(R.id.etClaveRegistro);
         etConfirmarClave = findViewById(R.id.etConfirmarClave);
         btnRegistrar = findViewById(R.id.btnRegistrar);
+        spinnerRol = findViewById(R.id.spinnerRol);
+
+        // Configurar spinner de roles (solo user y viewer)
+        String[] roles = {"user", "viewer"};
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_item, roles);
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        spinnerRol.setAdapter(adapter);
 
         btnRegistrar.setOnClickListener(v -> registrarUsuario());
     }
@@ -41,6 +51,7 @@ public class RegistroActivity extends AppCompatActivity {
         String correo = etCorreo.getText().toString().trim();
         String clave = etClaveRegistro.getText().toString().trim();
         String confirmarClave = etConfirmarClave.getText().toString().trim();
+        String rol = spinnerRol.getSelectedItem().toString();
 
         // Validaciones
         if (nombreUsuario.isEmpty()) {
@@ -86,16 +97,17 @@ public class RegistroActivity extends AppCompatActivity {
         }
 
         // Registrar en Firestore
-        registrarEnFirestore(nombreUsuario, correo, clave);
+        registrarEnFirestore(nombreUsuario, correo, clave, rol);
     }
 
-    private void registrarEnFirestore(String nombreUsuario, String correo, String clave) {
+    private void registrarEnFirestore(String nombreUsuario, String correo, String clave, String rol) {
         btnRegistrar.setEnabled(false);
 
         Map<String, Object> usuario = new HashMap<>();
         usuario.put("usuario", nombreUsuario);
         usuario.put("correo", correo);
         usuario.put("clave", clave);
+        usuario.put("rol", rol);
 
         db.collection("usuarios")
                 .add(usuario)
@@ -114,9 +126,8 @@ public class RegistroActivity extends AppCompatActivity {
                     etClaveRegistro.setText("");
                     etConfirmarClave.setText("");
 
-                    // Ir directamente a la interfaz de tareas (MainActivity)
-                    Intent intent = new Intent(RegistroActivity.this, MainActivity.class);
-                    intent.putExtra("usuario", nombreUsuario);
+                    // Ir al login
+                    Intent intent = new Intent(RegistroActivity.this, LoginActivity.class);
                     startActivity(intent);
                     finish();
                 })
