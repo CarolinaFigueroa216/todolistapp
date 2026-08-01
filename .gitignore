@@ -1,39 +1,67 @@
-```
+# Build artifacts
+build/
+dist/
+*.apk
+*.aab
+*.so
+*.jar
+
 # Dependencies
 .gradle/
-build/
+node_modules/
+vendor/
 
-# Java specific
-*.class
-*.jar
-*.war
-*.ear
-
-# IDE
+# IDE files
 .idea/
+.vscode/
 *.iml
-*.ipr
 *.iws
+*.ipr
 
-# System
+# System files
 .DS_Store
 Thumbs.db
 
 # Logs
 *.log
 
+# Local configuration
+local.properties
+gradle.properties
+*.keystore
+
+# Coverage reports
+coverage/
+htmlcov/
+
 # Environment
 .env
 .env.local
 *.env.*
 
-# Coverage
-coverage/
-htmlcov/
+# Python specific
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+.venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
 .coverage
-
-# Temp files
-*.tmp
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.log
+.gitattributes
 *.swp
+*.swo
 *~
-```
+.project
+.pydevproject
+.vscode/settings.json
