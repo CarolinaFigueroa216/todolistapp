@@ -4,9 +4,9 @@ Una aplicación Android nativa para gestionar tareas diarias con sincronización
 
 ## 📸 Capturas de Pantalla
 
-| Login | Registro | Principal |
-|-------|----------|-----------|
-| ![Login](screenshots/login.png) | ![Registro](screenshots/registro.png) | ![Principal](screenshots/main.png) |
+| Inicio de Sesion | Registro | Roll Admin | Roll User | Tareas | Base Tareas | Base Usuarios |
+|------------------|----------|------------|-----------|--------|-------------|---------------|
+| ![Inicio de Sesion](screenshots/login.png) | ![Registro](screenshots/registro.png) | ![Roll Admin](screenshots/admin.png) | ![Roll User](screenshots/user.png) | ![Tareas](screenshots/tareas.png) | ![Base Tareas](screenshots/base_tareas.png) | ![Base Usuarios](screenshots/base_usuarios.png) |
 
 *Agregar capturas de pantalla en la carpeta `screenshots/`*
 
