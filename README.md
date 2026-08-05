@@ -6,7 +6,7 @@ Una aplicación Android nativa para gestionar tareas diarias con sincronización
 
 | Inicio de Sesion | Registro | Roll Admin | Roll User | Tareas | Base Tareas | Base Usuarios |
 |------------------|----------|------------|-----------|--------|-------------|---------------|
-| ![Inicio de Sesion](screenshots/login.png.jpeg) | ![Registro](screenshots/registro.png.jpeg) | ![Roll Admin](screenshots/admin.png.jpeg) | ![Roll User](screenshots/user.png.jpeg) | ![Tareas](screenshots/tareas.png.jpeg) | ![Base Tareas](screenshots/base_tareas.png) | ![Base Usuarios](screenshots/base_usuarios.png) |
+| ![Inicio de Sesion](screenshots/Login.png.jpeg) | ![Registro](screenshots/Registro.png.jpeg) | ![Roll Admin](screenshots/Admin.png.jpeg) | ![Roll User](screenshots/User.png.jpeg) | ![Tareas](screenshots/tareas.png.jpeg) | ![Base Tareas](screenshots/base_tareas.png) | ![Base Usuarios](screenshots/base_usuarios.png) |
 
 *Agregar capturas de pantalla en la carpeta `screenshots/`*
 
