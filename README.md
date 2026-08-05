@@ -245,7 +245,7 @@ Este proyecto es de código abierto y está disponible bajo la licencia MIT.
 
 ## 👨‍💻 Autor
 
-Desarrollado como proyecto de práctica con Android + Firebase.
+Astrid Carolina Figueroa Patiño
 
 ---
 
